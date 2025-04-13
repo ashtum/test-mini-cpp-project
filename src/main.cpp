@@ -153,10 +153,13 @@ public:
         // the websocket stream has its own timeout system.
         beast::get_lowest_layer(ws_).expires_never();
 
+        websocket::stream_base::timeout timeout_opt{
+            .handshake_timeout = std::chrono::seconds(2),
+            .idle_timeout = std::chrono::seconds(7),
+            .keep_alive_pings = false};
+
         // Set suggested timeout settings for the websocket
-        ws_.set_option(
-            websocket::stream_base::timeout::suggested(
-                beast::role_type::client));
+        ws_.set_option(timeout_opt);
 
         // Set a decorator to change the User-Agent of the handshake
         ws_.set_option(websocket::stream_base::decorator(

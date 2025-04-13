@@ -21,4 +21,4 @@ target_compile_options(${PROJECT_NAME} PRIVATE $<$<BOOL:${MSVC}>:/bigobj>)
 
 enable_testing()
 add_test(NAME repro COMMAND ${PROJECT_NAME} 127.0.0.1 9050)
-set_tests_properties(repro PROPERTIES TIMEOUT 2000)
+set_tests_properties(repro PROPERTIES TIMEOUT 60)
